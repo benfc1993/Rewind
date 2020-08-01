@@ -11,19 +11,21 @@ public class Bullet : MonoBehaviour
         this.shootDir = shootDir;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         float moveSpeed = speed;
-        transform.position += shootDir * moveSpeed * Time.deltaTime;
+        transform.position += shootDir * moveSpeed * Time.fixedDeltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Target target = collider.GetComponent<Target>();
-        if (target != null)
+        Debug.Log(other);
+        Debug.Log(other.tag);
+        if (other.tag == "Wall")
         {
+            Debug.Log("hit");
             //Hit target
-            gameObject.speed = 0;
+            speed = 0;
         }
     }
 }

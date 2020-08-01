@@ -3,75 +3,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
 
+    Vector3 velocity;
+    Rigidbody myRigidbody;
     public event EventHandler<OnShootEventArgs> OnShoot;
+    public event EventHandler<OnShootEventArgs> Rewind;
     public class OnShootEventArgs : EventArgs
     {
         public Vector3 gunEndPointPosition;
         public Vector3 shootPosition;
-        public Vector3 shellPosition;
     }
 
     public Transform GunEnd;
-    // private PlayerLookAt playerLookAt;
-    private Transform aimTransform;
-    private Transform aimGunEndPointTransform;
-    private Transform aimShellPositionTransform;
-    private Animator aimAnimator;
 
-    private void Awake()
+    private PlayerLookAt PlayerLookAt;
+
+
+    private void Start()
     {
-        // playerLookAt = GetComponent<PlayerLookAt>();
-        // aimTransform = transform.Find("Aim");
-        // aimAnimator = aimTransform.GetComponent<Animator>();
-        // aimGunEndPointTransform = aimTransform.Find("GunEndPointPosition");
-        // aimShellPositionTransform = aimTransform.Find("ShellPosition");
+        PlayerLookAt = GetComponent<PlayerLookAt>();
+        myRigidbody = GetComponent<Rigidbody>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        HandleAiming();
         HandleShooting();
+        myRigidbody.MovePosition(myRigidbody.position + velocity * Time.fixedDeltaTime);
+
     }
 
-    private void HandleAiming()
+    public void Move(Vector3 _velocity)
     {
-        // Vector3 mousePosition = UtilsClass.GetMouseWorldPosition();
-
-        // Vector3 aimDirection = (mousePosition - aimTransform.position).normalized;
-        // float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        // aimTransform.eulerAngles = new Vector3(0, 0, angle);
-
-        // Vector3 aimLocalScale = Vector3.one;
-        // if (angle > 90 || angle < -90)
-        // {
-        //     aimLocalScale.y = -1f;
-        // }
-        // else
-        // {
-        //     aimLocalScale.y = +1f;
-        // }
-        // aimTransform.localScale = aimLocalScale;
-
-        // playerLookAt.SetLookAtPosition(mousePosition);
+        velocity = _velocity;
     }
 
     private void HandleShooting()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButton(0))
         {
-            // Vector3 mousePosition = UtilsClass.GetMouseWorldPosition();
-
             // aimAnimator.SetTrigger("Shoot");
 
             OnShoot?.Invoke(this, new OnShootEventArgs
             {
                 gunEndPointPosition = GunEnd.position,
-                shootPosition = new Vector3(-0.9f, 3.3f, 1),
-                // shellPosition = aimShellPositionTransform.position,
+                shootPosition = new Vector3(PlayerLookAt.point.x, GunEnd.position.y, PlayerLookAt.point.z),
             });
+        }
+        if (Input.GetMouseButton(1))
+        {
+
         }
     }
 
