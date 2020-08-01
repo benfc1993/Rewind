@@ -6,21 +6,24 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-
+    public Boolean hasShot = false;
     Vector3 velocity;
     Rigidbody myRigidbody;
     public event EventHandler<OnShootEventArgs> OnShoot;
-    public event EventHandler<OnShootEventArgs> Rewind;
+    public event EventHandler<OnRewindEventArgs> OnRewind;
     public class OnShootEventArgs : EventArgs
     {
         public Vector3 gunEndPointPosition;
         public Vector3 shootPosition;
     }
+    public class OnRewindEventArgs : EventArgs
+    {
+        public Vector3 gunEndPointPosition;
+    }
 
     public Transform GunEnd;
 
     private PlayerLookAt PlayerLookAt;
-
 
     private void Start()
     {
@@ -42,10 +45,10 @@ public class PlayerController : MonoBehaviour
 
     private void HandleShooting()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !hasShot)
         {
             // aimAnimator.SetTrigger("Shoot");
-
+            hasShot = true;
             OnShoot?.Invoke(this, new OnShootEventArgs
             {
                 gunEndPointPosition = GunEnd.position,
@@ -54,7 +57,10 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetMouseButton(1))
         {
-
+            OnRewind?.Invoke(this, new OnRewindEventArgs
+            {
+                gunEndPointPosition = GunEnd.position,
+            });
         }
     }
 

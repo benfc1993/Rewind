@@ -23,7 +23,7 @@ public class PlayerLookAt : MonoBehaviour
         if (groundPlane.Raycast(ray, out rayDistance))
         {
             point = ray.GetPoint(rayDistance);
-            Debug.DrawLine(ray.origin, point, Color.red);
+            Debug.DrawLine(ray.origin, point, Color.cyan);
 
             transform.LookAt(new Vector3(point.x, transform.position.y, point.z));
         }

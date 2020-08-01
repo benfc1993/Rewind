@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Vector3 moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         Vector3 moveVelocity = moveInput.normalized * moveSpeed;
