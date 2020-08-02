@@ -6,7 +6,7 @@ public class PlayerShoot : MonoBehaviour
 {
     [SerializeField] private Transform bullet;
     PlayerController Controller;
-    public Bullet CurrentBullet;
+    public SmartBullet CurrentBullet;
     public bool rewinding;
     LineRenderer Line;
     // Start is called before the first frame update
@@ -24,13 +24,13 @@ public class PlayerShoot : MonoBehaviour
 
         Vector3 shootDir = e.shootPosition - e.gunEndPointPosition;
         bulletTransform.rotation = Controller.GunEnd.rotation;
-        CurrentBullet = bulletTransform.GetComponent<Bullet>();
+        CurrentBullet = bulletTransform.GetComponent<SmartBullet>();
         CurrentBullet.SetDir(shootDir);
         CurrentBullet.fastforward = e.fastforward;
     }
     private void PlayerShootProjectiles_OnRewind(object sender, PlayerController.OnRewindEventArgs e)
     {
-        if(CurrentBullet)
+        if(CurrentBullet && (CurrentBullet.currentSpeed == 0 || Vector3.Distance(CurrentBullet.transform.position, transform.position) > 10))
         {
             Vector3 shootDir = e.gunEndPointPosition - CurrentBullet.transform.position;
             CurrentBullet.SetDir(shootDir);
