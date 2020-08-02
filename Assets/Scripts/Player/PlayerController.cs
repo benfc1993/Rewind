@@ -11,10 +11,13 @@ public class PlayerController : MonoBehaviour
     Rigidbody myRigidbody;
     public event EventHandler<OnShootEventArgs> OnShoot;
     public event EventHandler<OnRewindEventArgs> OnRewind;
+    public AudioSource Music;
+    private float MusicTime;
     public class OnShootEventArgs : EventArgs
     {
         public Vector3 gunEndPointPosition;
         public Vector3 shootPosition;
+        public bool fastforward;
     }
     public class OnRewindEventArgs : EventArgs
     {
@@ -53,14 +56,33 @@ public class PlayerController : MonoBehaviour
             {
                 gunEndPointPosition = GunEnd.position,
                 shootPosition = new Vector3(PlayerLookAt.point.x, GunEnd.position.y, PlayerLookAt.point.z),
+                fastforward = false
             });
         }
         if (Input.GetMouseButton(1))
         {
+            Music.time = MusicTime;
+            Music.Play();
             OnRewind?.Invoke(this, new OnRewindEventArgs
             {
                 gunEndPointPosition = GunEnd.position,
             });
+        }
+        if (Input.GetKeyDown(KeyCode.Q) && !hasShot)
+        {
+            // aimAnimator.SetTrigger("Shoot");
+            hasShot = true;
+            OnShoot?.Invoke(this, new OnShootEventArgs
+            {
+                gunEndPointPosition = GunEnd.position,
+                shootPosition = new Vector3(PlayerLookAt.point.x, GunEnd.position.y, PlayerLookAt.point.z),
+                fastforward = true
+            });
+        }
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            MusicTime = Music.time;
+            Music.Pause();
         }
     }
 

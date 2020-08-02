@@ -20,32 +20,33 @@ public class PlayerShoot : MonoBehaviour
 
     private void PlayerShootProjectiles_OnShoot(object sender, PlayerController.OnShootEventArgs e)
     {
-        Debug.Log("Shoot!");
         Transform bulletTransform = Instantiate(bullet, e.gunEndPointPosition, Quaternion.identity);
 
         Vector3 shootDir = e.shootPosition - e.gunEndPointPosition;
         bulletTransform.rotation = Controller.GunEnd.rotation;
         CurrentBullet = bulletTransform.GetComponent<Bullet>();
         CurrentBullet.SetDir(shootDir);
+        CurrentBullet.fastforward = e.fastforward;
     }
     private void PlayerShootProjectiles_OnRewind(object sender, PlayerController.OnRewindEventArgs e)
     {
-        Debug.Log("Rewind!");
-
-        Vector3 shootDir = e.gunEndPointPosition - CurrentBullet.transform.position;
-        CurrentBullet.SetDir(shootDir);
-        CurrentBullet.currentSpeed = CurrentBullet.speed;
-        CurrentBullet.rewinding = true;
-        rewinding = true;
+        if(CurrentBullet)
+        {
+            Vector3 shootDir = e.gunEndPointPosition - CurrentBullet.transform.position;
+            CurrentBullet.SetDir(shootDir);
+            CurrentBullet.currentSpeed = CurrentBullet.speed;
+            CurrentBullet.rewinding = true;
+            rewinding = true;
+        }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(CurrentBullet)
+        if(CurrentBullet && (CurrentBullet.currentSpeed == 0 || rewinding))
         {
-            Line.startWidth = 0.05f;
-            Line.endWidth = 0.05f;
+            Line.startWidth = 0.1f;
+            Line.endWidth = 0.1f;
             Line.positionCount = 2;
             Line.SetPosition(0,Controller.GunEnd.position);
             Line.SetPosition(1, CurrentBullet.transform.position);
@@ -55,7 +56,6 @@ public class PlayerShoot : MonoBehaviour
         }
         if (rewinding)
         {
-            Debug.Log("update vector");
             Vector3 shootDir = Controller.GunEnd.position - CurrentBullet.transform.position;
             CurrentBullet.SetDir(shootDir);
         }
