@@ -8,6 +8,7 @@ public class EnemyController : LivingEntity
     protected UnityEngine.AI.NavMeshAgent pathFinder;
     protected Transform target;
     public ParticleSystem DeathEffect;
+    public ParticleSystem DamageEffect;
     protected Transform Player;
     public float distanceToStay = 0;
     public int viewDistance;
@@ -30,14 +31,19 @@ public class EnemyController : LivingEntity
 
     protected bool canSeePlayer()
     {
-        if(Vector3.Distance(transform.position, Player.position) < viewDistance)
+        if(Player != null)
         {
-            Vector3 dirToPlayer = (Player.position - transform.position).normalized;
-            float angleToPlayer = Vector3.Angle(transform.forward, dirToPlayer);
-            if(angleToPlayer < viewAngle / 2f)
+            if(Vector3.Distance(transform.position, Player.position) < viewDistance)
             {
-                if(Physics.Linecast(transform.position, Player.position, viewMask))
+                Vector3 dirToPlayer = (Player.position - transform.position).normalized;
+                float angleToPlayer = Vector3.Angle(transform.forward, dirToPlayer);
+                if(angleToPlayer < viewAngle / 2f)
                 {
+                    print(Physics.Linecast(transform.position, Player.position, viewMask));
+                    if(Physics.Linecast(transform.position, Player.position, viewMask))
+                    {
+                        return false;
+                    }
                     return true;
                 }
             }
@@ -46,9 +52,13 @@ public class EnemyController : LivingEntity
     }
     public override void TakeHit(float damage, Vector3 hitPoint, Vector3 hitDirection)
     {
-        if(damage >= health)
+        if (damage >= health)
         {
-            Destroy(Instantiate(DeathEffect.gameObject, hitPoint, Quaternion.FromToRotation(Vector3.forward, hitDirection)) as GameObject, DeathEffect.startLifetime);
+            Destroy(Instantiate(DeathEffect.gameObject, hitPoint, Quaternion.FromToRotation(Vector3.forward, hitDirection)) as GameObject, DeathEffect.main.startLifetimeMultiplier);
+        }
+        else
+        {
+            Destroy(Instantiate(DamageEffect.gameObject, transform.position, Quaternion.FromToRotation(Vector3.forward, hitDirection)) as GameObject, DamageEffect.main.startLifetimeMultiplier);
         }
         base.TakeHit(damage, hitPoint, hitDirection);
     }
@@ -59,15 +69,21 @@ public class EnemyController : LivingEntity
         float refreshRate = 0.25f;
         while (target != null)
         {
-            if (Vector3.Distance(target.position, transform.position) > distanceToStay)
+            Vector3 targetPosition = new Vector3(target.position.x, 0, target.position.z);
+            if (!dead && Vector3.Distance(target.position, transform.position) > distanceToStay && canSeePlayer())
             {
-                Vector3 targetPosition = new Vector3(target.position.x, 0, target.position.z);
+                pathFinder.SetDestination(target.position);
+            }
+            else
+            {
                 if (!dead)
                 {
-                    pathFinder.SetDestination(target.position);
+                    pathFinder.ResetPath();
+                    transform.LookAt(Player);
                 }
-                yield return new WaitForSeconds(refreshRate);
             }
+            yield return new WaitForSeconds(refreshRate);
         }
     }
+
 }

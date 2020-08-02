@@ -76,7 +76,6 @@ public class SmartBullet : MonoBehaviour
 
     void OnHitEnemy(Collider c, Vector3 hitPoint)
     {
-        print(c.gameObject.name);
         IDamagable damagableObject = c.GetComponent<IDamagable>();
         if (damagableObject != null)
         {
@@ -88,8 +87,7 @@ public class SmartBullet : MonoBehaviour
     void OnHitWall(RaycastHit hit)
     {
         string tag = hit.collider.gameObject.tag;
-        print(hit.collider.gameObject.name);
-        Destroy(Instantiate(sparkEffect.gameObject, hit.point, Quaternion.FromToRotation(Vector3.forward, -transform.forward)) as GameObject, sparkEffect.startLifetime);
+        Destroy(Instantiate(sparkEffect.gameObject, hit.point, Quaternion.FromToRotation(Vector3.forward, -transform.forward)) as GameObject, sparkEffect.main.startLifetimeMultiplier);
         if (!rewinding)
         {
             if (tag == "OuterWall")
@@ -106,11 +104,10 @@ public class SmartBullet : MonoBehaviour
 
     void OnHitShield(RaycastHit hit)
     {
-        print(Vector3.Angle(transform.forward, hit.transform.forward));
-        if((Vector3.Angle(transform.forward, hit.transform.forward) > 90 && !rewinding) || (Vector3.Angle(-transform.forward, hit.transform.forward) > 90 && rewinding))
+        if((Vector3.Angle(transform.forward, hit.transform.forward) > 90 && Vector3.Angle(transform.forward, hit.transform.forward) < 270 && !rewinding) || (Vector3.Angle(-transform.forward, hit.transform.forward) > 90 && Vector3.Angle(transform.forward, hit.transform.forward) < 270 && rewinding))
         {
             hitShield = true;
-            Destroy(Instantiate(sparkEffect.gameObject, hit.point, Quaternion.FromToRotation(Vector3.forward, -transform.forward)) as GameObject, sparkEffect.startLifetime);
+            Destroy(Instantiate(sparkEffect.gameObject, hit.point, Quaternion.FromToRotation(Vector3.forward, -transform.forward)) as GameObject, sparkEffect.main.startLifetimeMultiplier);
             rewinding = true;
             SetDir(Player.transform.position - transform.position);
             currentSpeed = speed / 2;
@@ -120,7 +117,7 @@ public class SmartBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(rewinding && other.gameObject.layer == 11)
+        if(rewinding && other.gameObject.tag == "Catch")
         {
             playerController.hasShot = false;
             Player.GetComponent<PlayerShoot>().CurrentBullet = null;

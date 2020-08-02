@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyRanged :EnemyController
+public class EnemyRanged : EnemyController
 {
     public Transform bullet;
     public Transform barrel;
@@ -11,7 +11,7 @@ public class EnemyRanged :EnemyController
 
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if(fireRate == 0)
         {

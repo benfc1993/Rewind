@@ -168,15 +168,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 1
   DeathEffect: {fileID: 8577246913766950365, guid: 10f1803cbebbe2d439731f237b478220, type: 3}
+  DamageEffect: {fileID: 0}
   distanceToStay: 20
-  viewDistance: 10
+  viewDistance: 60
   viewAngle: 20
   viewMask:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 512
   bullet: {fileID: 8320185394942105647, guid: 2ed590c17d88ed846905f2569664dd96, type: 3}
   barrel: {fileID: 2990921324344702935}
-  startingFireRate: 0.5
+  startingFireRate: 0.2
 --- !u!1 &5203947783366803189
 GameObject:
   m_ObjectHideFlags: 0

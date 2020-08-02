@@ -24,22 +24,22 @@ public class Bullet : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, distToMove, playerCollisionMask, QueryTriggerInteraction.Collide))
         {
-        Destroy(Instantiate(BulletHit.gameObject, hit.point, Quaternion.identity) as GameObject, 1f);
+        Destroy(Instantiate(BulletHit.gameObject, hit.point, Quaternion.identity) as GameObject, 0.2f);
             OnHitPlayer(hit.collider, hit.point);
         }
         if (Physics.Raycast(ray, out hit, distToMove, wallCollisionMask, QueryTriggerInteraction.Collide))
         {
-            Destroy(Instantiate(BulletHit.gameObject, hit.point, Quaternion.identity) as GameObject, 1f);
+            Destroy(Instantiate(BulletHit.gameObject, hit.point, Quaternion.identity) as GameObject, 0.2f);
             OnHitWall(hit);
         }
     }
 
     void OnHitPlayer(Collider c, Vector3 hitPoint)
     {
-        print(c.gameObject.name);
         IDamagable damagableObject = c.GetComponent<IDamagable>();
         if (damagableObject != null)
         {
+            Destroy(Instantiate(sparkEffect.gameObject, hitPoint, Quaternion.FromToRotation(Vector3.forward, -transform.forward)) as GameObject, sparkEffect.main.startLifetimeMultiplier);
             damagableObject.TakeHit(damage, hitPoint, transform.forward);
         }
         GameObject.Destroy(gameObject);
@@ -47,7 +47,7 @@ public class Bullet : MonoBehaviour
 
     void OnHitWall(RaycastHit hit)
     {
-        Destroy(Instantiate(sparkEffect.gameObject, hit.point, Quaternion.FromToRotation(Vector3.forward, -transform.forward)) as GameObject, sparkEffect.startLifetime);
+        Destroy(Instantiate(sparkEffect.gameObject, hit.point, Quaternion.FromToRotation(Vector3.forward, -transform.forward)) as GameObject, sparkEffect.main.startLifetimeMultiplier);
         GameObject.Destroy(gameObject);
     }
 }

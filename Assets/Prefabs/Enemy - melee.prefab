@@ -134,10 +134,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 1
   DeathEffect: {fileID: 8577246913766950365, guid: 10f1803cbebbe2d439731f237b478220, type: 3}
-  viewDistance: 10
+  DamageEffect: {fileID: 0}
+  distanceToStay: 0
+  viewDistance: 40
   viewAngle: 90
   viewMask:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 512
   attackCountdown: 0
   startAttackCountdown: 1

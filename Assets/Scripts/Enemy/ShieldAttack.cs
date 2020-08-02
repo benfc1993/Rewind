@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMelee : EnemyController
+public class ShieldAttack : MonoBehaviour
 {
     LayerMask collisionMask;
-    int damage = 1;
+    int damage = 3;
     public float attackCountdown = 0;
-    public float startAttackCountdown = 10;
+    public float startAttackCountdown = 1;
     // Update is called once per frame
     void Update()
     {
-            if (attackCountdown != 0)
+        if (attackCountdown != 0)
         {
             handleAttackCountdown();
         }

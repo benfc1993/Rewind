@@ -95,10 +95,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.8607321
-  m_Height: 2.2944202
+  m_Radius: 0.5494205
+  m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0.14721012, z: 0.36073208}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &957052117412409658
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -109,7 +109,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -135,12 +135,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 1
   DeathEffect: {fileID: 8577246913766950365, guid: 10f1803cbebbe2d439731f237b478220, type: 3}
+  DamageEffect: {fileID: 0}
   distanceToStay: 0
-  viewDistance: 10
+  viewDistance: 40
   viewAngle: 90
   viewMask:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 512
   attackCountdown: 0
   startAttackCountdown: 1
 --- !u!1 &8663752276768617218
@@ -155,6 +156,7 @@ GameObject:
   - component: {fileID: 6949157336112451533}
   - component: {fileID: 7601662985563915026}
   - component: {fileID: 4556219172782003290}
+  - component: {fileID: 5525186059260750511}
   m_Layer: 12
   m_Name: Cube
   m_TagString: Wall
@@ -233,8 +235,22 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8663752276768617218}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1.5739648}
   m_Center: {x: 0, y: 0, z: -0.07563269}
+--- !u!114 &5525186059260750511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8663752276768617218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca5b953eb319f3348bbb3a1d98f6a5ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackCountdown: 0
+  startAttackCountdown: 1
