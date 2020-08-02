@@ -9,6 +9,7 @@ public class Bullet : MonoBehaviour
     public LayerMask playerCollisionMask;
     public LayerMask wallCollisionMask;
     public ParticleSystem sparkEffect;
+    public Light BulletHit;
 
     private void Update()
     {
@@ -23,10 +24,12 @@ public class Bullet : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, distToMove, playerCollisionMask, QueryTriggerInteraction.Collide))
         {
+        Destroy(Instantiate(BulletHit.gameObject, hit.point, Quaternion.identity) as GameObject, 1f);
             OnHitPlayer(hit.collider, hit.point);
         }
         if (Physics.Raycast(ray, out hit, distToMove, wallCollisionMask, QueryTriggerInteraction.Collide))
         {
+            Destroy(Instantiate(BulletHit.gameObject, hit.point, Quaternion.identity) as GameObject, 1f);
             OnHitWall(hit);
         }
     }

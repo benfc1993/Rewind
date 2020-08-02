@@ -59,7 +59,6 @@ public class SmartBullet : MonoBehaviour
         if (Physics.Raycast(ray, out hit, distToMove, shieldCollisionMask, QueryTriggerInteraction.Collide))
         {
             OnHitShield(hit);
-            hitShield = true;
         }
         if(!hitShield)
         {
@@ -107,10 +106,16 @@ public class SmartBullet : MonoBehaviour
 
     void OnHitShield(RaycastHit hit)
     {
-        Destroy(Instantiate(sparkEffect.gameObject, hit.point, Quaternion.FromToRotation(Vector3.forward, -transform.forward)) as GameObject, sparkEffect.startLifetime);
-        rewinding = true;
-        SetDir(Player.transform.position - transform.position);
-        currentSpeed = speed / 2;
+        print(Vector3.Angle(transform.forward, hit.transform.forward));
+        if((Vector3.Angle(transform.forward, hit.transform.forward) > 90 && !rewinding) || (Vector3.Angle(-transform.forward, hit.transform.forward) > 90 && rewinding))
+        {
+            hitShield = true;
+            Destroy(Instantiate(sparkEffect.gameObject, hit.point, Quaternion.FromToRotation(Vector3.forward, -transform.forward)) as GameObject, sparkEffect.startLifetime);
+            rewinding = true;
+            SetDir(Player.transform.position - transform.position);
+            currentSpeed = speed / 2;
+
+        }
     }
 
     private void OnTriggerEnter(Collider other)

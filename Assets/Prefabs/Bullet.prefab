@@ -134,3 +134,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   sparkEffect: {fileID: 5246626515154772791, guid: 724ebe6d506d5584694c5b02fd6c8f67, type: 3}
+  BulletHit: {fileID: 4514352793660391381, guid: 503bdea7e2175b741a44636d03e577e2, type: 3}

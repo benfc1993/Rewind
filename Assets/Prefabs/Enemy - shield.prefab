@@ -135,6 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 1
   DeathEffect: {fileID: 8577246913766950365, guid: 10f1803cbebbe2d439731f237b478220, type: 3}
+  distanceToStay: 0
   viewDistance: 10
   viewAngle: 90
   viewMask:
@@ -235,5 +236,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 0.48299283}
-  m_Center: {x: 0, y: 0, z: 0.4698533}
+  m_Size: {x: 1, y: 1, z: 1.5739648}
+  m_Center: {x: 0, y: 0, z: -0.07563269}
