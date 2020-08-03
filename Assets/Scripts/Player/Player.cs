@@ -6,6 +6,8 @@ using UnityEngine;
 public class Player : LivingEntity
 {
     public float moveSpeed = 5;
+    public float bounceSpeed = 15;
+    public float bounceTime = 0.25f;
     public float dashSpeed = 10;
     private float dashing = 0;
     private float dashTime = 0.0f;
@@ -15,6 +17,9 @@ public class Player : LivingEntity
     public ParticleSystem DeathEffect;
     public ParticleSystem DamageEffect;
 
+    public LayerMask wallCollisionMask;
+
+    float bouncing;
     PlayerController controller;
     // Start is called before the first frame update
     protected override void Start()
@@ -40,10 +45,42 @@ public class Player : LivingEntity
             dashing = dashSpeed;
             dashTime -= Time.fixedDeltaTime;
         }
-        Vector3 moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        Vector3 moveVelocity = moveInput.normalized * (moveSpeed + dashing);
-        controller.Move(moveVelocity);
+        if (bouncing <= 0)
+        {
+            bouncing = 0;
+        }
+        else
+        {
+            bouncing -= Time.fixedDeltaTime;
+        }
+        if (bouncing == 0 )
+        {
+            Vector3 moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+            float distToMove = (moveSpeed + dashing) * Time.deltaTime;
+            Vector3 moveVelocity = CheckCollisions(distToMove, moveInput);
+            controller.Move(moveVelocity);
+        }
     }
+
+    Vector3 CheckCollisions(float distToMove, Vector3 moveInput)
+    {
+        Ray ray = new Ray(transform.position, moveInput);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, distToMove, wallCollisionMask, QueryTriggerInteraction.Collide))
+        {
+            print("BOUNCE");
+            Vector3 bounce = Vector3.Reflect(moveInput.normalized, hit.normal) * (bounceSpeed);
+            //Vector3 bounce = moveInput.normalized * -1 * (bounceSpeed);
+            bounce.y = 0;
+            bouncing = bounceTime;
+            return bounce;
+        }
+        else
+        {
+            return moveInput.normalized * (moveSpeed + dashing);
+        }
+    }
+
     public override void TakeHit(float damage, Vector3 hitPoint, Vector3 hitDirection)
     {
         if (damage >= health)
