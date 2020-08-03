@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, distToMove, playerCollisionMask, QueryTriggerInteraction.Collide))
         {
-        Destroy(Instantiate(BulletHit.gameObject, hit.point, Quaternion.identity) as GameObject, 0.2f);
+            Destroy(Instantiate(BulletHit.gameObject, hit.point, Quaternion.identity) as GameObject, 0.2f);
             OnHitPlayer(hit.collider, hit.point);
         }
         if (Physics.Raycast(ray, out hit, distToMove, wallCollisionMask, QueryTriggerInteraction.Collide))

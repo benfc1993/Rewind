@@ -16,6 +16,7 @@ public class SmartBullet : MonoBehaviour
     public LayerMask enemyCollisionMask;
     public LayerMask wallCollisionMask;
     public LayerMask shieldCollisionMask;
+    public Light BulletHit;
 
     private GameObject Player;
     PlayerController playerController;
@@ -56,21 +57,28 @@ public class SmartBullet : MonoBehaviour
     {
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, distToMove, shieldCollisionMask, QueryTriggerInteraction.Collide))
+        if(currentSpeed > 0)
         {
-            OnHitShield(hit);
-        }
-        if(!hitShield)
-        {
-            if (Physics.Raycast(ray, out hit, distToMove, enemyCollisionMask, QueryTriggerInteraction.Collide))
-            {
-                OnHitEnemy(hit.collider, hit.point);
-            }
 
-        }
-        if (Physics.Raycast(ray, out hit, distToMove, wallCollisionMask, QueryTriggerInteraction.Collide))
-        {
-            OnHitWall(hit);
+            if (Physics.Raycast(ray, out hit, distToMove, shieldCollisionMask, QueryTriggerInteraction.Collide))
+            {
+                Destroy(Instantiate(BulletHit.gameObject, hit.point, Quaternion.identity) as GameObject, 0.2f);
+                OnHitShield(hit);
+            }
+            if(!hitShield)
+            {
+                if (Physics.Raycast(ray, out hit, distToMove, enemyCollisionMask, QueryTriggerInteraction.Collide))
+                {
+                    Destroy(Instantiate(BulletHit.gameObject, hit.point, Quaternion.identity) as GameObject, 0.2f);
+                    OnHitEnemy(hit.collider, hit.point);
+                }
+
+            }
+            if (Physics.Raycast(ray, out hit, distToMove, wallCollisionMask, QueryTriggerInteraction.Collide))
+            {
+                Destroy(Instantiate(BulletHit.gameObject, hit.point, Quaternion.identity) as GameObject, 0.2f);
+                OnHitWall(hit);
+            }
         }
     }
 
