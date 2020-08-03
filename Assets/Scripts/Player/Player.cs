@@ -29,18 +29,24 @@ public class Player : LivingEntity
     }
 
     // Update is called once per frame
+    private void Update()
+    {
+        handleInputs();
+    }
     void FixedUpdate()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && dashTime == 0)
-        {
-            dust.Play();
-            dashTime = startDashTime;
-        }
-        if(dashTime <= 0)
+        handleTimers();
+        handleMovement();
+    }
+
+    void handleTimers()
+    {
+        if (dashTime <= 0)
         {
             dashTime = 0;
             dashing = 0;
-        } else
+        }
+        else
         {
             dashing = dashSpeed;
             dashTime -= Time.fixedDeltaTime;
@@ -53,7 +59,16 @@ public class Player : LivingEntity
         {
             bouncing -= Time.fixedDeltaTime;
         }
-        if (bouncing == 0 )
+    }
+
+    void handleMovement()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && dashTime == 0)
+        {
+            dust.Play();
+            dashTime = startDashTime;
+        }
+        if (bouncing == 0)
         {
             Vector3 moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
             float distToMove = (moveSpeed + dashing) * Time.deltaTime;
@@ -62,15 +77,28 @@ public class Player : LivingEntity
         }
     }
 
+    void handleInputs()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1) && !controller.hasShot)
+        {
+            controller.currentEquipped = 0;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2) && !controller.hasShot)
+        {
+            controller.currentEquipped = 1;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3) && !controller.hasShot)
+        {
+            controller.currentEquipped = 2;
+        }
+    }
     Vector3 CheckCollisions(float distToMove, Vector3 moveInput)
     {
         Ray ray = new Ray(transform.position, moveInput);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, distToMove, wallCollisionMask, QueryTriggerInteraction.Collide))
         {
-            print("BOUNCE");
             Vector3 bounce = Vector3.Reflect(moveInput.normalized, hit.normal) * (bounceSpeed);
-            //Vector3 bounce = moveInput.normalized * -1 * (bounceSpeed);
             bounce.y = 0;
             bouncing = bounceTime;
             return bounce;

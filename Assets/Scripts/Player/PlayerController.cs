@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public Boolean hasShot = false;
     Vector3 velocity;
     Rigidbody myRigidbody;
+    public int currentEquipped = 0;
     public event EventHandler<OnShootEventArgs> OnShoot;
     public event EventHandler<OnRewindEventArgs> OnRewind;
     public AudioSource Music;

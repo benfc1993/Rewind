@@ -427,6 +427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasShot: 0
+  currentEquipped: 0
   Music: {fileID: 4371859207980609141}
   GunEnd: {fileID: 4371859208566826569}
 --- !u!114 &4371859207389961947
@@ -456,6 +457,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 3897687796440592107, guid: a010d5c406f0a084aa7c5f1d9b692034, type: 3}
   CurrentBullet: {fileID: 6434352005079867909, guid: a010d5c406f0a084aa7c5f1d9b692034, type: 3}
+  bulletTypes:
+  - {fileID: 3897687796440592107, guid: a010d5c406f0a084aa7c5f1d9b692034, type: 3}
+  - {fileID: 8800290367427425129, guid: 8d9b105d37ace6f44b3d8ee734326b12, type: 3}
+  - {fileID: 1400168403700623766, guid: 133dabc7c64c1fd4aa15f5d70f9bd49b, type: 3}
   rewinding: 0
 --- !u!120 &4371859207389961949
 LineRenderer:

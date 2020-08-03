@@ -134,8 +134,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 1
+  health: 0
   DeathEffect: {fileID: 8577246913766950365, guid: 10f1803cbebbe2d439731f237b478220, type: 3}
-  DamageEffect: {fileID: 0}
+  DamageEffect: {fileID: 5246626515154772791, guid: 724ebe6d506d5584694c5b02fd6c8f67, type: 3}
   distanceToStay: 0
   viewDistance: 40
   viewAngle: 90
@@ -173,7 +174,7 @@ Transform:
   m_GameObject: {fileID: 8663752276768617218}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.139, z: 0.869}
-  m_LocalScale: {x: 1.0170684, y: 1.6324, z: 0.26198}
+  m_LocalScale: {x: 1.3935871, y: 1.6324, z: 0.26198}
   m_Children: []
   m_Father: {fileID: 957052117412409659}
   m_RootOrder: 0

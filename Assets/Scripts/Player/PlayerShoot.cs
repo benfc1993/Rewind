@@ -7,7 +7,9 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private Transform bullet;
     PlayerController Controller;
     public SmartBullet CurrentBullet;
+    public Transform[] bulletTypes;
     public bool rewinding;
+
     LineRenderer Line;
     // Start is called before the first frame update
     private void Awake()
@@ -20,20 +22,31 @@ public class PlayerShoot : MonoBehaviour
 
     private void PlayerShootProjectiles_OnShoot(object sender, PlayerController.OnShootEventArgs e)
     {
-        Transform bulletTransform = Instantiate(bullet, e.gunEndPointPosition, Quaternion.identity);
+        Transform bulletTransform = Instantiate(bulletTypes[Controller.currentEquipped], e.gunEndPointPosition, Quaternion.identity);
 
         Vector3 shootDir = e.shootPosition - e.gunEndPointPosition;
         bulletTransform.rotation = Controller.GunEnd.rotation;
-        CurrentBullet = bulletTransform.GetComponent<SmartBullet>();
-        CurrentBullet.SetDir(shootDir);
+        switch (Controller.currentEquipped)
+        {
+            case 0:
+                CurrentBullet = bulletTransform.GetComponent<SmartBullet>();
+                break;
+            case 1:
+                CurrentBullet = bulletTransform.GetComponent<SmartBullet>() as Shell;
+                break;
+            case 2:
+                CurrentBullet = bulletTransform.GetComponent<SmartBullet>();
+                break;
+
+
+        }
+        CurrentBullet.GunEnd = Controller.GunEnd;
         CurrentBullet.fastforward = e.fastforward;
     }
     private void PlayerShootProjectiles_OnRewind(object sender, PlayerController.OnRewindEventArgs e)
     {
         if(CurrentBullet && (CurrentBullet.currentSpeed == 0 || Vector3.Distance(CurrentBullet.transform.position, transform.position) > 10))
         {
-            Vector3 shootDir = e.gunEndPointPosition - CurrentBullet.transform.position;
-            CurrentBullet.SetDir(shootDir);
             CurrentBullet.currentSpeed = CurrentBullet.speed;
             CurrentBullet.rewinding = true;
             rewinding = true;
@@ -57,7 +70,7 @@ public class PlayerShoot : MonoBehaviour
         if (rewinding)
         {
             Vector3 shootDir = Controller.GunEnd.position - CurrentBullet.transform.position;
-            CurrentBullet.SetDir(shootDir);
+
         }
     }
 }

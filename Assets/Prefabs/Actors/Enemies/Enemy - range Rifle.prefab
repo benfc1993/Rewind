@@ -167,8 +167,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 1
+  health: 0
   DeathEffect: {fileID: 8577246913766950365, guid: 10f1803cbebbe2d439731f237b478220, type: 3}
-  DamageEffect: {fileID: 0}
+  DamageEffect: {fileID: 5246626515154772791, guid: 724ebe6d506d5584694c5b02fd6c8f67, type: 3}
   distanceToStay: 20
   viewDistance: 60
   viewAngle: 20

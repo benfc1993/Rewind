@@ -7,6 +7,9 @@ public class SmartBullet : MonoBehaviour
     public float damage = 1;
     public float speed;
     public float currentSpeed;
+    public enum bulletTypes { basic, pellet, armorPiercing};
+    public bulletTypes bulletType;
+
     private Vector3 shootDir;
 
     public bool hitShield = false;
@@ -17,23 +20,23 @@ public class SmartBullet : MonoBehaviour
     public LayerMask wallCollisionMask;
     public LayerMask shieldCollisionMask;
     public Light BulletHit;
-
-    private GameObject Player;
-    PlayerController playerController;
+    public Transform GunEnd;
+    public GameObject Player;
+    protected PlayerController playerController;
+    public Transform _shell;
 
     public ParticleSystem sparkEffect;
 
-    private void Start()
+    protected virtual void Start()
     {
         Player = GameObject.Find("Player");
         playerController = Player.GetComponent<PlayerController>();
         currentSpeed = speed;
+        if(bulletType == bulletTypes.pellet)
+        {
+            Destroy(gameObject, 1.5f);
+        }
     }
-    public void SetDir(Vector3 _shootDir)
-    {
-        shootDir = _shootDir;
-    }
-
     private void Update()
     {
         float distToMove = currentSpeed * Time.deltaTime;
@@ -50,6 +53,10 @@ public class SmartBullet : MonoBehaviour
         else
         {
             transform.Translate(Vector3.forward * Time.deltaTime * currentSpeed);
+        }
+        if (Vector3.Distance(transform.position, Player.transform.position) > 70 && !rewinding)
+        {
+            currentSpeed = 0;
         }
     }
 
@@ -89,11 +96,16 @@ public class SmartBullet : MonoBehaviour
         {
             Vector3 direction = rewinding ? transform.forward * -1 : transform.forward;
             damagableObject.TakeHit(damage, hitPoint, direction);
+            if(bulletType == bulletTypes.pellet)
+            {
+                    Destroy(gameObject);
+            }
         }
     }
 
     void OnHitWall(RaycastHit hit)
     {
+
         string tag = hit.collider.gameObject.tag;
         Destroy(Instantiate(sparkEffect.gameObject, hit.point, Quaternion.FromToRotation(Vector3.forward, -transform.forward)) as GameObject, sparkEffect.main.startLifetimeMultiplier);
         if (!rewinding)
@@ -101,10 +113,18 @@ public class SmartBullet : MonoBehaviour
             if (tag == "OuterWall")
             {
                 currentSpeed = 0;
+                if (gameObject && bulletType == bulletTypes.pellet)
+                {
+                    Destroy(gameObject);
+                }
             }
-            if (tag == "Wall" && !fastforward)
+            if (gameObject &&  bulletType != bulletTypes.pellet && tag == "Wall" && !fastforward)
             {
                 currentSpeed = 0;
+            }
+            if (_shell &&  bulletType == bulletTypes.pellet && !_shell.GetComponent<Shell>().fastforward)
+            {
+                Destroy(gameObject);
             }
         }
             // GameObject.Destroy(gameObject);
@@ -112,14 +132,20 @@ public class SmartBullet : MonoBehaviour
 
     void OnHitShield(RaycastHit hit)
     {
-        if((Vector3.Angle(transform.forward, hit.transform.forward) > 90 && Vector3.Angle(transform.forward, hit.transform.forward) < 270 && !rewinding) || (Vector3.Angle(-transform.forward, hit.transform.forward) > 90 && Vector3.Angle(transform.forward, hit.transform.forward) < 270 && rewinding))
+        if(bulletType != bulletTypes.armorPiercing)
         {
-            hitShield = true;
-            Destroy(Instantiate(sparkEffect.gameObject, hit.point, Quaternion.FromToRotation(Vector3.forward, -transform.forward)) as GameObject, sparkEffect.main.startLifetimeMultiplier);
-            rewinding = true;
-            SetDir(Player.transform.position - transform.position);
-            currentSpeed = speed / 2;
+            if ((Vector3.Angle(transform.forward, hit.transform.forward) > 90 && Vector3.Angle(transform.forward, hit.transform.forward) < 270 && !rewinding) || (Vector3.Angle(-transform.forward, hit.transform.forward) > 90 && Vector3.Angle(transform.forward, hit.transform.forward) < 270 && rewinding))
+            {
+                hitShield = true;
+                Destroy(Instantiate(sparkEffect.gameObject, hit.point, Quaternion.FromToRotation(Vector3.forward, -transform.forward)) as GameObject, sparkEffect.main.startLifetimeMultiplier);
+                rewinding = true;
+                currentSpeed = speed / 2;
 
+            }
+            if (gameObject && bulletType == bulletTypes.pellet)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

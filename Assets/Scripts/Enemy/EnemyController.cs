@@ -64,7 +64,6 @@ public class EnemyController : LivingEntity
 
     IEnumerator UpdatePath()
     {
-        print("update path");
         float refreshRate = 0.25f;
         while (target != null)
         {
