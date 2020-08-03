@@ -404,16 +404,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4811736e6e32eea4b8dced8100cc4ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 5
+  startingHealth: 10
   health: 0
   moveSpeed: 10
   bounceSpeed: 10
   bounceTime: 0.25
   dashSpeed: 25
   startDashTime: 0.2
+  startRechargeTimer: 30
+  rechargeTimer: 0
   dust: {fileID: 4371859208056877201}
   DeathEffect: {fileID: 8577246913766950365, guid: 10f1803cbebbe2d439731f237b478220, type: 3}
   DamageEffect: {fileID: 5246626515154772791, guid: 724ebe6d506d5584694c5b02fd6c8f67, type: 3}
+  bulletUI: []
+  healthBar: {fileID: 0}
+  chargeBar: {fileID: 0}
   wallCollisionMask:
     serializedVersion: 2
     m_Bits: 512
@@ -466,6 +471,7 @@ MonoBehaviour:
   - {fileID: 1400168403700623766, guid: 133dabc7c64c1fd4aa15f5d70f9bd49b, type: 3}
   rewinding: 0
   fastForward: 0
+  ammoCounter: {fileID: 0}
 --- !u!120 &4371859207389961949
 LineRenderer:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     Vector3 velocity;
     Rigidbody myRigidbody;
     public int currentEquipped = 0;
+
     public event EventHandler<OnShootEventArgs> OnShoot;
     public event EventHandler<OnRewindEventArgs> OnRewind;
     public AudioSource Music;
@@ -28,11 +29,15 @@ public class PlayerController : MonoBehaviour
     public Transform GunEnd;
 
     private PlayerLookAt PlayerLookAt;
+    private Player player;
+    private PlayerShoot playerShoot;
 
     private void Start()
     {
         PlayerLookAt = GetComponent<PlayerLookAt>();
         myRigidbody = GetComponent<Rigidbody>();
+        player = GetComponent<Player>();
+        playerShoot = GetComponent<PlayerShoot>();
     }
 
     private void FixedUpdate()
@@ -60,7 +65,7 @@ public class PlayerController : MonoBehaviour
                 fastforward = false
             });
         }
-        if (Input.GetMouseButton(1) && GetComponent<PlayerShoot>().CurrentBullet.currentSpeed == 0)
+        if (Input.GetMouseButton(1) && playerShoot.CurrentBullet.currentSpeed == 0)
         {
 
             Music.time = MusicTime;
@@ -73,13 +78,17 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) && !hasShot)
         {
             // aimAnimator.SetTrigger("Shoot");
-            hasShot = true;
-            OnShoot?.Invoke(this, new OnShootEventArgs
+            if(player.rechargeTimer == player.startRechargeTimer)
             {
-                gunEndPointPosition = GunEnd.position,
-                shootPosition = new Vector3(PlayerLookAt.point.x, GunEnd.position.y, PlayerLookAt.point.z),
-                fastforward = true
-            });
+                player.rechargeTimer = 0;
+                hasShot = true;
+                OnShoot?.Invoke(this, new OnShootEventArgs
+                {
+                    gunEndPointPosition = GunEnd.position,
+                    shootPosition = new Vector3(PlayerLookAt.point.x, GunEnd.position.y, PlayerLookAt.point.z),
+                    fastforward = true
+                });
+            }
         }
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {

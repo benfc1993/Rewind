@@ -6,16 +6,25 @@ using UnityEngine;
 public class Player : LivingEntity
 {
     public float moveSpeed = 5;
+
     public float bounceSpeed = 15;
     public float bounceTime = 0.25f;
+
     public float dashSpeed = 10;
     private float dashing = 0;
     private float dashTime = 0.0f;
     public float startDashTime;
-    private int direction;
+
+    public float startRechargeTimer = 5;
+    public float rechargeTimer;
+
     public ParticleSystem dust;
     public ParticleSystem DeathEffect;
     public ParticleSystem DamageEffect;
+    public GameObject[] bulletUI;
+
+    public HealthBar healthBar;
+    public HealthBar chargeBar;
 
     public LayerMask wallCollisionMask;
 
@@ -26,12 +35,16 @@ public class Player : LivingEntity
     {
         base.Start();
         controller = GetComponent<PlayerController>();
+        healthBar.SetMaxHealth(startingHealth);
+        chargeBar.SetMaxHealth(startRechargeTimer);
+        rechargeTimer = startRechargeTimer;
     }
 
     // Update is called once per frame
     private void Update()
     {
         handleInputs();
+        handleUI();
     }
     void FixedUpdate()
     {
@@ -58,6 +71,15 @@ public class Player : LivingEntity
         else
         {
             bouncing -= Time.fixedDeltaTime;
+        }
+        if (rechargeTimer >= startRechargeTimer)
+        {
+            rechargeTimer = startRechargeTimer;
+        }
+        else
+        {
+            rechargeTimer += Time.fixedDeltaTime;
+            chargeBar.SetHealth(rechargeTimer);
         }
     }
 
@@ -92,6 +114,18 @@ public class Player : LivingEntity
             controller.currentEquipped = 2;
         }
     }
+
+    void handleUI()
+    {
+        if (!bulletUI[controller.currentEquipped].activeSelf)
+        {
+            for (int i = 0; i < bulletUI.Length; i++)
+            {
+                bulletUI[i].SetActive(false);
+            }
+            bulletUI[controller.currentEquipped].SetActive(true);
+        }
+    }
     Vector3 CheckCollisions(float distToMove, Vector3 moveInput)
     {
         Ray ray = new Ray(transform.position, moveInput);
@@ -120,5 +154,7 @@ public class Player : LivingEntity
             Destroy(Instantiate(DamageEffect.gameObject, transform.position, Quaternion.FromToRotation(Vector3.forward, hitDirection)) as GameObject, DamageEffect.main.startLifetimeMultiplier);
         }
         base.TakeHit(damage, hitPoint, hitDirection);
+
+        healthBar.SetHealth(health);
     }
 }
