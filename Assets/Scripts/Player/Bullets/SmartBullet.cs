@@ -19,7 +19,6 @@ public class SmartBullet : MonoBehaviour
     public LayerMask enemyCollisionMask;
     public LayerMask wallCollisionMask;
     public LayerMask shieldCollisionMask;
-    public Light BulletHit;
     public Transform GunEnd;
     public GameObject Player;
     protected PlayerController playerController;
@@ -47,14 +46,14 @@ public class SmartBullet : MonoBehaviour
         }
         if (rewinding)
         {
-            shootDir = Player.transform.position - transform.position;
+            shootDir = playerController.GunEnd.transform.position - transform.position;
             transform.position += shootDir.normalized * currentSpeed * Time.deltaTime;
         }
         else
         {
             transform.Translate(Vector3.forward * Time.deltaTime * currentSpeed);
         }
-        if (Vector3.Distance(transform.position, Player.transform.position) > 70 && !rewinding)
+        if (Vector3.Distance(transform.position, playerController.GunEnd.transform.position) > 70 && !rewinding)
         {
             currentSpeed = 0;
         }
@@ -69,21 +68,18 @@ public class SmartBullet : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, distToMove, shieldCollisionMask, QueryTriggerInteraction.Collide))
             {
-                Destroy(Instantiate(BulletHit.gameObject, hit.point, Quaternion.identity) as GameObject, 0.2f);
                 OnHitShield(hit);
             }
             if(!hitShield)
             {
                 if (Physics.Raycast(ray, out hit, distToMove, enemyCollisionMask, QueryTriggerInteraction.Collide))
                 {
-                    Destroy(Instantiate(BulletHit.gameObject, hit.point, Quaternion.identity) as GameObject, 0.2f);
                     OnHitEnemy(hit.collider, hit.point);
                 }
 
             }
             if (Physics.Raycast(ray, out hit, distToMove, wallCollisionMask, QueryTriggerInteraction.Collide))
             {
-                Destroy(Instantiate(BulletHit.gameObject, hit.point, Quaternion.identity) as GameObject, 0.2f);
                 OnHitWall(hit);
             }
         }
@@ -156,6 +152,7 @@ public class SmartBullet : MonoBehaviour
             playerController.hasShot = false;
             Player.GetComponent<PlayerShoot>().CurrentBullet = null;
             Player.GetComponent<PlayerShoot>().rewinding = false;
+            Player.GetComponent<PlayerShoot>().ammoCounter.text = "1/1";
             Destroy(gameObject);
         }
     }

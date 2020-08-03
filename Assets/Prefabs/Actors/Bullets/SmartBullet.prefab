@@ -111,7 +111,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   speed: 75
-  currentSpeed: 30
+  currentSpeed: 75
+  bulletType: 0
   hitShield: 0
   rewinding: 0
   fastforward: 0
@@ -124,7 +125,9 @@ MonoBehaviour:
   shieldCollisionMask:
     serializedVersion: 2
     m_Bits: 4096
-  BulletHit: {fileID: 4514352793660391381, guid: 503bdea7e2175b741a44636d03e577e2, type: 3}
+  GunEnd: {fileID: 0}
+  Player: {fileID: 0}
+  _shell: {fileID: 0}
   sparkEffect: {fileID: 644955747672524502, guid: cb7554a1f8c94514c98be11bc3999b77, type: 3}
 --- !u!54 &6719655602857399857
 Rigidbody:

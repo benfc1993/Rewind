@@ -8,9 +8,13 @@ public class EnemyRanged : EnemyController
     public Transform barrel;
     public float startingFireRate;
     float fireRate = 0;
-
+    MuzzleFlash muzzleFlash;
 
     // Update is called once per frame
+    private void Awake()
+    {
+        muzzleFlash = GetComponent<MuzzleFlash>();
+    }
     private void Update()
     {
         if(fireRate == 0)
@@ -34,6 +38,7 @@ public class EnemyRanged : EnemyController
 
     private void Shoot()
     {
+        muzzleFlash.Activate();
         Transform bulletTransform = Instantiate(bullet, barrel.position, Quaternion.identity);
 
         Vector3 shootDir = Player.position - barrel.position;

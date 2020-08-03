@@ -60,8 +60,9 @@ public class PlayerController : MonoBehaviour
                 fastforward = false
             });
         }
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(1) && GetComponent<PlayerShoot>().CurrentBullet.currentSpeed == 0)
         {
+
             Music.time = MusicTime;
             Music.Play();
             OnRewind?.Invoke(this, new OnRewindEventArgs

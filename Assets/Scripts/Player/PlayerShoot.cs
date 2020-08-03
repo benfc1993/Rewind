@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerShoot : MonoBehaviour
 {
@@ -9,8 +10,12 @@ public class PlayerShoot : MonoBehaviour
     public SmartBullet CurrentBullet;
     public Transform[] bulletTypes;
     public bool rewinding;
-
+    public bool fastForward;
+    MuzzleFlash muzzleFlash;
+    MuzzleFlashSecondary muzzleFlashSecondary;
     LineRenderer Line;
+
+    public TMPro.TextMeshProUGUI ammoCounter;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -18,10 +23,24 @@ public class PlayerShoot : MonoBehaviour
         Controller.OnShoot += PlayerShootProjectiles_OnShoot;
         Controller.OnRewind += PlayerShootProjectiles_OnRewind;
         Line = GetComponent<LineRenderer>();
+        muzzleFlash = GetComponent<MuzzleFlash>();
+        muzzleFlashSecondary = GetComponent<MuzzleFlashSecondary>();
+        ammoCounter.text = "1/1";
     }
 
     private void PlayerShootProjectiles_OnShoot(object sender, PlayerController.OnShootEventArgs e)
     {
+        if(e.fastforward)
+        {
+        muzzleFlashSecondary.Activate();
+
+        }
+        else
+        {
+        muzzleFlash.Activate();
+
+        }
+        ammoCounter.text = "0/1";
         Transform bulletTransform = Instantiate(bulletTypes[Controller.currentEquipped], e.gunEndPointPosition, Quaternion.identity);
 
         Vector3 shootDir = e.shootPosition - e.gunEndPointPosition;
@@ -47,6 +66,7 @@ public class PlayerShoot : MonoBehaviour
     {
         if(CurrentBullet && (CurrentBullet.currentSpeed == 0 || Vector3.Distance(CurrentBullet.transform.position, transform.position) > 10))
         {
+            
             CurrentBullet.currentSpeed = CurrentBullet.speed;
             CurrentBullet.rewinding = true;
             rewinding = true;
