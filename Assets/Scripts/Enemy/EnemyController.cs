@@ -39,7 +39,6 @@ public class EnemyController : LivingEntity
                 float angleToPlayer = Vector3.Angle(transform.forward, dirToPlayer);
                 if(angleToPlayer < viewAngle / 2f)
                 {
-                    print(Physics.Linecast(transform.position, Player.position, viewMask));
                     if(Physics.Linecast(transform.position, Player.position, viewMask))
                     {
                         return false;

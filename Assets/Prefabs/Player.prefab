@@ -404,11 +404,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 5
   moveSpeed: 10
-  dashSpeed: 15
+  bounceSpeed: 10
+  bounceTime: 0.25
+  dashSpeed: 25
   startDashTime: 0.2
   dust: {fileID: 4371859208056877201}
   DeathEffect: {fileID: 8577246913766950365, guid: 10f1803cbebbe2d439731f237b478220, type: 3}
   DamageEffect: {fileID: 5246626515154772791, guid: 724ebe6d506d5584694c5b02fd6c8f67, type: 3}
+  wallCollisionMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &4371859207389961948
 MonoBehaviour:
   m_ObjectHideFlags: 0
