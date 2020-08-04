@@ -19,6 +19,8 @@ public class SmartBullet : MonoBehaviour
     public LayerMask enemyCollisionMask;
     public LayerMask wallCollisionMask;
     public LayerMask shieldCollisionMask;
+    public LayerMask furnitureCollisionMask;
+
     public Transform GunEnd;
     public GameObject Player;
     protected PlayerController playerController;
@@ -38,24 +40,28 @@ public class SmartBullet : MonoBehaviour
     }
     private void Update()
     {
-        float distToMove = currentSpeed * Time.deltaTime;
-        CheckCollisions(distToMove);
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if(Player && Player.transform)
         {
-            currentSpeed = 0;
-        }
-        if (rewinding)
-        {
-            shootDir = playerController.GunEnd.transform.position - transform.position;
-            transform.position += shootDir.normalized * currentSpeed * Time.deltaTime;
-        }
-        else
-        {
-            transform.Translate(Vector3.forward * Time.deltaTime * currentSpeed);
-        }
-        if (Vector3.Distance(transform.position, playerController.GunEnd.transform.position) > 70 && !rewinding)
-        {
-            currentSpeed = 0;
+            float distToMove = currentSpeed * Time.deltaTime;
+            CheckCollisions(distToMove);
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                currentSpeed = 0;
+            }
+            if (rewinding )
+            {
+                shootDir = playerController.GunEnd.transform.position - transform.position;
+                transform.position += shootDir.normalized * currentSpeed * Time.deltaTime;
+            }
+            else
+            {
+                transform.Translate(Vector3.forward * Time.deltaTime * currentSpeed);
+            }
+            if (Vector3.Distance(transform.position, playerController.GunEnd.transform.position) > 70 && !rewinding)
+            {
+                currentSpeed = 0;
+            }
+
         }
     }
 
@@ -81,6 +87,10 @@ public class SmartBullet : MonoBehaviour
             if (Physics.Raycast(ray, out hit, distToMove, wallCollisionMask, QueryTriggerInteraction.Collide))
             {
                 OnHitWall(hit);
+            }
+            if (Physics.Raycast(ray, out hit, distToMove, furnitureCollisionMask, QueryTriggerInteraction.Collide))
+            {
+                OnHitEnemy(hit.collider, hit.point);
             }
         }
     }

@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 967306585069030990}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.054000456, y: 0.04253145, z: 0.12953408}
+  m_LocalScale: {x: 0.06344451, y: 0.06344451, z: 0.06344451}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -42,7 +42,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 967306585069030990}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 8811845946248626251, guid: 5359d4795da03784f8b3fe5c77e3a0b8, type: 3}
 --- !u!23 &4629735848037932542
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e2622498dc13c83479b91197bea77a33, type: 2}
+  - {fileID: 2100000, guid: 9b8fa7a502d5c1642875d31da1730e98, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -141,6 +141,10 @@ MonoBehaviour:
   shieldCollisionMask:
     serializedVersion: 2
     m_Bits: 4096
-  BulletHit: {fileID: 4514352793660391381, guid: 503bdea7e2175b741a44636d03e577e2, type: 3}
+  furnitureCollisionMask:
+    serializedVersion: 2
+    m_Bits: 8192
+  GunEnd: {fileID: 0}
   Player: {fileID: 0}
+  _shell: {fileID: 0}
   sparkEffect: {fileID: 644955747672524502, guid: cb7554a1f8c94514c98be11bc3999b77, type: 3}
