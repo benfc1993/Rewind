@@ -57,12 +57,6 @@ public class Player : LivingEntity {
         } else {
             bouncing -= Time.fixedDeltaTime;
         }
-        if (rechargeTimer >= startRechargeTimer) {
-            rechargeTimer = startRechargeTimer;
-        } else {
-            rechargeTimer += Time.fixedDeltaTime;
-            chargeBar.SetHealth (rechargeTimer);
-        }
     }
 
     void handleMovement () {
