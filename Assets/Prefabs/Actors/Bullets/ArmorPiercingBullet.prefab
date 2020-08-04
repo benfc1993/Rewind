@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2820523688695620464}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.09796763, y: 0.07716056, z: 0.23500073}
+  m_LocalScale: {x: 0.0923134, y: 0.0923134, z: 0.0923134}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -42,7 +42,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2820523688695620464}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 9001107974464685731, guid: 5359d4795da03784f8b3fe5c77e3a0b8, type: 3}
 --- !u!23 &7640413213847728320
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e2622498dc13c83479b91197bea77a33, type: 2}
+  - {fileID: 2100000, guid: 9b8fa7a502d5c1642875d31da1730e98, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,8 +95,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.2768407, y: 1.4753911, z: 1.8256363}
-  m_Center: {x: 0.05140325, y: 0.036961883, z: 0.05746242}
+  m_Size: {x: 3.2424333, y: 2.7295566, z: 9.403034}
+  m_Center: {x: 0.05140325, y: 0.18651466, z: -1.6138334}
 --- !u!54 &8662736503421342028
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -141,6 +141,10 @@ MonoBehaviour:
   shieldCollisionMask:
     serializedVersion: 2
     m_Bits: 4096
-  BulletHit: {fileID: 4514352793660391381, guid: 503bdea7e2175b741a44636d03e577e2, type: 3}
+  furnitureCollisionMask:
+    serializedVersion: 2
+    m_Bits: 8192
+  GunEnd: {fileID: 0}
   Player: {fileID: 0}
+  _shell: {fileID: 0}
   sparkEffect: {fileID: 644955747672524502, guid: cb7554a1f8c94514c98be11bc3999b77, type: 3}

@@ -15,6 +15,9 @@ public class EnemyController : LivingEntity
     public float viewAngle;
     public LayerMask viewMask;
 
+    public bool hasBattery;
+    public Battery battery;
+
     protected override void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -54,6 +57,10 @@ public class EnemyController : LivingEntity
         if (damage >= health)
         {
             Destroy(Instantiate(DeathEffect.gameObject, hitPoint, Quaternion.FromToRotation(Vector3.forward, hitDirection)) as GameObject, DeathEffect.main.startLifetimeMultiplier);
+            if(hasBattery)
+            {
+                Instantiate(battery, transform.position, Quaternion.identity);
+            }
         }
         else
         {
