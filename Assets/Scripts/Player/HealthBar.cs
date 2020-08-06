@@ -7,12 +7,13 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour {
     Slider slider;
 
-    private void Start () {
-        slider = GetComponent<Slider> ();
+    private void Awake () {
+        slider = GetComponent<Slider>();
     }
 
     public void SetMaxHealth (float MaxHealth) {
-        //slider.maxValue = MaxHealth;
+        slider.maxValue = MaxHealth;
+        slider.value = MaxHealth;
     }
     public void SetHealth (float Health) {
         slider.value = Health;

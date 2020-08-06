@@ -147,6 +147,7 @@ MonoBehaviour:
   GunEnd: {fileID: 0}
   Player: {fileID: 0}
   _shell: {fileID: 0}
+  BulletHit: {fileID: 4514352793660391381, guid: 503bdea7e2175b741a44636d03e577e2, type: 3}
   sparkEffect: {fileID: 644955747672524502, guid: cb7554a1f8c94514c98be11bc3999b77, type: 3}
-  Pellets: 10
+  Pellets: 12
   Pellet: {fileID: 4118109551560246440, guid: d750cfa2f551bee40b26249757fa8876, type: 3}

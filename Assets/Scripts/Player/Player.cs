@@ -22,22 +22,26 @@ public class Player : LivingEntity {
     public GameObject[] bulletUI;
 
     public HealthBar healthBar;
-    public HealthBar chargeBar;
 
     public LayerMask wallCollisionMask;
-
+    AudioManager audioManager;
     float bouncing;
     PlayerController controller;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
     protected override void Start () {
         base.Start ();
+        healthBar.SetMaxHealth(startingHealth);
         controller = GetComponent<PlayerController> ();
-        //healthBar.SetMaxHealth(startingHealth);
     }
 
     // Update is called once per frame
     private void Update () {
         handleInputs ();
+        handleUI();
     }
     void FixedUpdate () {
         handleTimers ();
@@ -62,6 +66,7 @@ public class Player : LivingEntity {
     void handleMovement () {
         if (Input.GetKeyDown (KeyCode.Space) && dashTime == 0) {
             dust.Play ();
+            audioManager.Play("Dodge");
             dashTime = startDashTime;
         }
         if (bouncing == 0) {
@@ -73,19 +78,23 @@ public class Player : LivingEntity {
     }
 
     void handleInputs () {
-        if (Input.GetKeyDown (KeyCode.Alpha1) && !controller.hasShot) {
+        if (Input.GetKeyDown (KeyCode.Alpha1) && controller.currentEquipped != 0  && !controller.hasShot) {
             controller.currentEquipped = 0;
+            audioManager.ChangeSong(0);
         }
-        if (Input.GetKeyDown (KeyCode.Alpha2) && !controller.hasShot) {
+        if (Input.GetKeyDown (KeyCode.Alpha2) && controller.currentEquipped != 1 && !controller.hasShot) {
             controller.currentEquipped = 1;
+            audioManager.ChangeSong(1);
         }
-        if (Input.GetKeyDown (KeyCode.Alpha3) && !controller.hasShot) {
+        if (Input.GetKeyDown (KeyCode.Alpha3) && controller.currentEquipped != 2 && !controller.hasShot) {
             controller.currentEquipped = 2;
+            audioManager.ChangeSong(2);
         }
     }
 
     void handleUI () {
         if (!bulletUI[controller.currentEquipped].activeSelf) {
+            print("change highlight");
             for (int i = 0; i < bulletUI.Length; i++) {
                 bulletUI[i].SetActive (false);
             }
@@ -107,12 +116,13 @@ public class Player : LivingEntity {
 
     public override void TakeHit (float damage, Vector3 hitPoint, Vector3 hitDirection) {
         if (damage >= health) {
+            audioManager.Play("Death");
             Destroy (Instantiate (DeathEffect.gameObject, transform.position, Quaternion.FromToRotation (Vector3.forward, hitDirection)) as GameObject, DeathEffect.main.startLifetimeMultiplier);
         } else {
             Destroy (Instantiate (DamageEffect.gameObject, transform.position, Quaternion.FromToRotation (Vector3.forward, hitDirection)) as GameObject, DamageEffect.main.startLifetimeMultiplier);
         }
         base.TakeHit (damage, hitPoint, hitDirection);
 
-        //healthBar.SetHealth(health);
+        healthBar.SetHealth(health);
     }
 }

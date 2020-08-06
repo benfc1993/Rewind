@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent (typeof (Rigidbody))]
@@ -12,7 +10,6 @@ public class PlayerController : MonoBehaviour {
 
     public event EventHandler<OnShootEventArgs> OnShoot;
     public event EventHandler<OnRewindEventArgs> OnRewind;
-    public AudioSource Music;
     private float MusicTime;
     public class OnShootEventArgs : EventArgs {
         public Vector3 gunEndPointPosition;
@@ -25,10 +22,15 @@ public class PlayerController : MonoBehaviour {
 
     public Transform GunEnd;
 
+    public GameObject batteryOne;
+    public GameObject batteryTwo;
+
+
     private PlayerLookAt PlayerLookAt;
     private Player player;
     private PlayerShoot playerShoot;
 
+    bool paused = false;
     private void Start () {
         PlayerLookAt = GetComponent<PlayerLookAt> ();
         myRigidbody = GetComponent<Rigidbody> ();
@@ -57,9 +59,11 @@ public class PlayerController : MonoBehaviour {
             });
         }
         if (Input.GetMouseButton (1) && playerShoot.CurrentBullet && playerShoot.CurrentBullet.currentSpeed == 0) {
-
-            Music.time = MusicTime;
-            Music.Play ();
+            if(paused)
+            {
+                FindObjectOfType<AudioManager>().Resume();
+                paused = false;
+            }
             OnRewind?.Invoke (this, new OnRewindEventArgs {
                 gunEndPointPosition = GunEnd.position,
             });
@@ -69,6 +73,7 @@ public class PlayerController : MonoBehaviour {
             if (player.charge > 0) {
                 player.charge -= 1;
                 hasShot = true;
+                SetBatteries();
                 OnShoot?.Invoke (this, new OnShootEventArgs {
                     gunEndPointPosition = GunEnd.position,
                         shootPosition = new Vector3 (PlayerLookAt.point.x, GunEnd.position.y, PlayerLookAt.point.z),
@@ -76,9 +81,10 @@ public class PlayerController : MonoBehaviour {
                 });
             }
         }
-        if (Input.GetKeyDown (KeyCode.LeftShift)) {
-            MusicTime = Music.time;
-            Music.Pause ();
+        if (Input.GetKeyDown (KeyCode.E) && !paused && hasShot && playerShoot.CurrentBullet.currentSpeed != 0) {
+            paused = true;
+            FindObjectOfType<AudioManager>().Pause();
+            playerShoot.CurrentBullet.currentSpeed = 0; 
         }
     }
 
@@ -87,8 +93,27 @@ public class PlayerController : MonoBehaviour {
             other.GetComponent<Battery> ().die ();
             print (player.charge);
             player.charge += 1;
-
+            SetBatteries();
         }
     }
+
+        public void SetBatteries()
+        {
+            switch (player.charge)
+            {
+                case 0:
+                    batteryOne.SetActive(false);
+                    batteryTwo.SetActive(false);
+                    break;
+                case 1:
+                    batteryOne.SetActive(true);
+                    batteryTwo.SetActive(false);
+                    break;
+                case 2:
+                    batteryOne.SetActive(true);
+                    batteryTwo.SetActive(true);
+                    break;
+            }
+        }
 
 }

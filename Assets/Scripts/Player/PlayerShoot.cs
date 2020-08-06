@@ -30,7 +30,27 @@ public class PlayerShoot : MonoBehaviour
 
     private void PlayerShootProjectiles_OnShoot(object sender, PlayerController.OnShootEventArgs e)
     {
-        if(e.fastforward)
+        if (e.fastforward)
+        {
+            FindObjectOfType<AudioManager>().Play("FastForward");
+        }
+
+        switch (Controller.currentEquipped)
+        {
+            case 0:
+                FindObjectOfType<AudioManager>().Play("BaseShot");
+                break;
+            case 1:
+                FindObjectOfType<AudioManager>().Play("ShotgunShot");
+
+                break;
+            case 2:
+                FindObjectOfType<AudioManager>().Play("ArmourShot");
+                break;
+
+        }
+
+        if (e.fastforward)
         {
         muzzleFlashSecondary.Activate();
 

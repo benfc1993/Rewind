@@ -26,11 +26,15 @@ public class Bullet : MonoBehaviour
         {
             Destroy(Instantiate(BulletHit.gameObject, hit.point, Quaternion.identity) as GameObject, 0.2f);
             OnHitPlayer(hit.collider, hit.point);
+            FindObjectOfType<AudioManager>().Play("BulletHit");
+
         }
         if (Physics.Raycast(ray, out hit, distToMove, wallCollisionMask, QueryTriggerInteraction.Collide))
         {
             Destroy(Instantiate(BulletHit.gameObject, hit.point, Quaternion.identity) as GameObject, 0.2f);
             OnHitWall(hit);
+            FindObjectOfType<AudioManager>().Play("BulletHit");
+
         }
     }
 

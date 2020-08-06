@@ -176,9 +176,12 @@ MonoBehaviour:
   viewMask:
     serializedVersion: 2
     m_Bits: 512
+  hasBattery: 0
+  battery: {fileID: 0}
   bullet: {fileID: 8320185394942105647, guid: 2ed590c17d88ed846905f2569664dd96, type: 3}
   barrel: {fileID: 2990921324344702935}
   startingFireRate: 0.2
+  rangeType: 1
 --- !u!114 &1364668354432810225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,8 +231,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5203947783366803189}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.025919676, y: 0.06049037, z: 0.33127904}
-  m_LocalScale: {x: 0.018657792, y: 0.041205917, z: 0.1269187}
+  m_LocalPosition: {x: 0.025919676, y: 0.06049037, z: 0.459}
+  m_LocalScale: {x: 0.05436241, y: 0.041205917, z: 0.14478886}
   m_Children: []
   m_Father: {fileID: 2320216244497686069}
   m_RootOrder: 0
@@ -320,7 +323,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6741643851879009784}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.022, y: 0.098, z: 1.108}
+  m_LocalPosition: {x: 0.022, y: 0.098, z: 1.328}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9162699722365709215}

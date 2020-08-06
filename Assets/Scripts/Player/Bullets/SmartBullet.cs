@@ -26,6 +26,7 @@ public class SmartBullet : MonoBehaviour
     protected PlayerController playerController;
     public Transform _shell;
 
+    public Light BulletHit;
     public ParticleSystem sparkEffect;
 
     protected virtual void Start()
@@ -50,6 +51,10 @@ public class SmartBullet : MonoBehaviour
             }
             if (rewinding )
             {
+                if(Vector3.Distance(playerController.GunEnd.transform.position, transform.position) < 1.5f)
+                {
+                    catchBullet();
+                }
                 shootDir = playerController.GunEnd.transform.position - transform.position;
                 transform.position += shootDir.normalized * currentSpeed * Time.deltaTime;
             }
@@ -74,23 +79,33 @@ public class SmartBullet : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, distToMove, shieldCollisionMask, QueryTriggerInteraction.Collide))
             {
+                Destroy(Instantiate(BulletHit.gameObject, hit.point, Quaternion.identity) as GameObject, 0.2f);
                 OnHitShield(hit);
+                FindObjectOfType<AudioManager>().Play("BulletHitShield");
             }
             if(!hitShield)
             {
                 if (Physics.Raycast(ray, out hit, distToMove, enemyCollisionMask, QueryTriggerInteraction.Collide))
                 {
+                    Destroy(Instantiate(BulletHit.gameObject, hit.point, Quaternion.identity) as GameObject, 0.2f);
                     OnHitEnemy(hit.collider, hit.point);
+                    FindObjectOfType<AudioManager>().Play("BulletHit");
+
                 }
 
             }
             if (Physics.Raycast(ray, out hit, distToMove, wallCollisionMask, QueryTriggerInteraction.Collide))
             {
+                Destroy(Instantiate(BulletHit.gameObject, hit.point, Quaternion.identity) as GameObject, 0.2f);
                 OnHitWall(hit);
+                FindObjectOfType<AudioManager>().Play("BulletHit");
+
             }
             if (Physics.Raycast(ray, out hit, distToMove, furnitureCollisionMask, QueryTriggerInteraction.Collide))
             {
+                Destroy(Instantiate(BulletHit.gameObject, hit.point, Quaternion.identity) as GameObject, 0.2f);
                 OnHitEnemy(hit.collider, hit.point);
+                FindObjectOfType<AudioManager>().Play("BulletHit");
             }
         }
     }
@@ -155,15 +170,13 @@ public class SmartBullet : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(rewinding && other.gameObject.tag == "Catch")
-        {
-            playerController.hasShot = false;
-            Player.GetComponent<PlayerShoot>().CurrentBullet = null;
-            Player.GetComponent<PlayerShoot>().rewinding = false;
-            Player.GetComponent<PlayerShoot>().ammoCounter.text = "1/1";
-            Destroy(gameObject);
-        }
+    private void catchBullet()
+    { 
+        FindObjectOfType<AudioManager>().Play("CollectBullet");
+        playerController.hasShot = false;
+        Player.GetComponent<PlayerShoot>().CurrentBullet = null;
+        Player.GetComponent<PlayerShoot>().rewinding = false;
+        Player.GetComponent<PlayerShoot>().ammoCounter.text = "1/1";
+        Destroy(gameObject);
     }
 }

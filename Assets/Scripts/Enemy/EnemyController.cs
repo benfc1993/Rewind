@@ -56,6 +56,7 @@ public class EnemyController : LivingEntity
     {
         if (damage >= health)
         {
+            FindObjectOfType<AudioManager>().Play("Death");
             Destroy(Instantiate(DeathEffect.gameObject, hitPoint, Quaternion.FromToRotation(Vector3.forward, hitDirection)) as GameObject, DeathEffect.main.startLifetimeMultiplier);
             if(hasBattery)
             {

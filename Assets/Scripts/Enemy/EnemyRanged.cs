@@ -9,7 +9,8 @@ public class EnemyRanged : EnemyController
     public float startingFireRate;
     float fireRate = 0;
     MuzzleFlash muzzleFlash;
-
+    public enum RangeType { Pistol, Rifle};
+    public RangeType rangeType;
     // Update is called once per frame
     private void Awake()
     {
@@ -38,6 +39,14 @@ public class EnemyRanged : EnemyController
 
     private void Shoot()
     {
+        if(rangeType == RangeType.Pistol)
+        {
+            FindObjectOfType<AudioManager>().Play("PistolShot");
+        }
+        if (rangeType == RangeType.Rifle)
+        {
+            FindObjectOfType<AudioManager>().Play("RifleShot");
+        }
         muzzleFlash.Activate();
         Transform bulletTransform = Instantiate(bullet, barrel.position, Quaternion.identity);
 
