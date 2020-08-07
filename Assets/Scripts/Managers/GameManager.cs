@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
         }
         Time.timeScale = 1f;
         DontDestroyOnLoad(gameObject);
+        print("loaded");
     }
 
     public void StartLevel()
@@ -26,6 +27,8 @@ public class GameManager : MonoBehaviour
 
     public void NextScene()
     {
+        //Transition
+        FindObjectOfType<Transition>().FadeOUt();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
