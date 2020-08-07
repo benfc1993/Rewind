@@ -8,7 +8,7 @@ public class Elevator : MonoBehaviour
 	{
 		if(other.tag == "Player" && levelEnd)
 		{
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+			FindObjectOfType<GameManager>().NextScene();
 		}
 	}
 }

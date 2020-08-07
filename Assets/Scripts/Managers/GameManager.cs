@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -23,5 +22,10 @@ public class GameManager : MonoBehaviour
     {
         FindObjectOfType<LevelManager>().SwapLights();
         FindObjectOfType<AudioManager>().ChangeSong(0);
+    }
+
+    public void NextScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
