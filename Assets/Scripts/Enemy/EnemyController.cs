@@ -61,6 +61,7 @@ public class EnemyController : LivingEntity
             if(hasBattery)
             {
                 Instantiate(battery, transform.position, Quaternion.identity);
+                Die();
             }
         }
         else
@@ -68,6 +69,12 @@ public class EnemyController : LivingEntity
             Destroy(Instantiate(DamageEffect.gameObject, transform.position, Quaternion.FromToRotation(Vector3.forward, hitDirection)) as GameObject, DamageEffect.main.startLifetimeMultiplier);
         }
         base.TakeHit(damage, hitPoint, hitDirection);
+    }
+
+    protected override void Die()
+    {
+        FindObjectOfType<ElevatorDoor>().OnEnemyDeath();
+        base.Die();
     }
 
     IEnumerator UpdatePath()

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1969240988573190233}
   m_Layer: 10
   m_Name: Enemy - range Pistol
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
   viewAngle: 20
   viewMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 16896
   hasBattery: 0
   battery: {fileID: 0}
   bullet: {fileID: 8320185394942105647, guid: 2ed590c17d88ed846905f2569664dd96, type: 3}
@@ -196,7 +196,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4123181355361192690}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.025919676, y: 0.35550952, z: 0.45372105}
+  m_LocalPosition: {x: -0.025919676, y: 0.115, z: 0.625}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2952026577315626635}
@@ -228,7 +228,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7468851546489312960}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.022, y: 0.134, z: 0.619}
+  m_LocalPosition: {x: -0.003, y: 0.238, z: 0.505}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4532221948691937074}
@@ -261,9 +261,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8219547995342693837}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.025919676, y: 0.1316, z: 0.49799994}
-  m_LocalScale: {x: 0.044468753, y: 0.07486229, z: 0.16481228}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.11564, z: 0.64367}
+  m_LocalScale: {x: 0.16616158, y: 0.16616158, z: 0.16616158}
   m_Children: []
   m_Father: {fileID: 1880958542493418765}
   m_RootOrder: 0
@@ -275,7 +275,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8219547995342693837}
-  m_Mesh: {fileID: 1220828769319070387, guid: fa39ff959390a6947a39ed6114c4568f, type: 3}
+  m_Mesh: {fileID: 1220828769319070387, guid: 232402c00a68a0a4dba5293396ae4efe, type: 3}
 --- !u!23 &4547704088300390901
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -328,8 +328,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.42636204, y: 1.897046, z: 3.9208221}
+  m_Center: {x: 0.00000019371508, y: 0.13868095, z: -2.7999184}
 --- !u!1001 &1859943746543605207
 PrefabInstance:
   m_ObjectHideFlags: 0

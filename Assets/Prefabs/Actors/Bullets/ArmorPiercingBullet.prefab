@@ -143,7 +143,7 @@ MonoBehaviour:
     m_Bits: 4096
   furnitureCollisionMask:
     serializedVersion: 2
-    m_Bits: 8192
+    m_Bits: 24576
   GunEnd: {fileID: 0}
   Player: {fileID: 0}
   _shell: {fileID: 0}

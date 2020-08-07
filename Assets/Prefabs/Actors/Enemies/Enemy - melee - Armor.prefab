@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1730758099207676456}
   m_Layer: 10
   m_Name: Enemy - melee - Armor
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,7 +142,9 @@ MonoBehaviour:
   viewAngle: 90
   viewMask:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 16896
+  hasBattery: 0
+  battery: {fileID: 0}
   attackCountdown: 0
   startAttackCountdown: 1
 --- !u!1 &9016696881459331771
@@ -157,7 +159,7 @@ GameObject:
   - component: {fileID: 2513268131119654577}
   - component: {fileID: 256006320461566316}
   - component: {fileID: 2488717556608585954}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Armour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,9 +173,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9016696881459331771}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7473424, y: 1.1345, z: 0.74191964}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.74, z: 0}
+  m_LocalScale: {x: 0.53227, y: 0.53227, z: 0.53227}
   m_Children: []
   m_Father: {fileID: 1731976491522581979}
   m_RootOrder: 0
@@ -185,7 +187,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9016696881459331771}
-  m_Mesh: {fileID: -8713171009388675592, guid: fa39ff959390a6947a39ed6114c4568f, type: 3}
+  m_Mesh: {fileID: -8713171009388675592, guid: d57c9cf55f1e9894c8ef98a5e92c1c21, type: 3}
 --- !u!23 &256006320461566316
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -238,5 +240,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.9021156, y: 2, z: 1.9999998}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2.9639707, y: 6.790206, z: 3.1164982}
+  m_Center: {x: 0, y: 2.339639, z: 0}

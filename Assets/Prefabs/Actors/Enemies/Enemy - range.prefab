@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 8404842600259866152}
   m_Layer: 10
   m_Name: Enemy - range
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -396,6 +396,9 @@ MonoBehaviour:
   viewMask:
     serializedVersion: 2
     m_Bits: 2048
+  hasBattery: 0
+  battery: {fileID: 0}
   bullet: {fileID: 8320185394942105647, guid: 2ed590c17d88ed846905f2569664dd96, type: 3}
   barrel: {fileID: 9071679274157269002}
   startingFireRate: 2
+  rangeType: 0

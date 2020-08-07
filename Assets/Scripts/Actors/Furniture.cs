@@ -11,6 +11,7 @@ public class Furniture : LivingEntity
     {
         if (damage >= health)
         {
+            FindObjectOfType<AudioManager>().Play("FurnitureBreak");
             Destroy(Instantiate(DeathEffect.gameObject, transform.position, Quaternion.FromToRotation(Vector3.forward, hitDirection)) as GameObject, DeathEffect.main.startLifetimeMultiplier);
         }
         else

@@ -60,6 +60,7 @@ public class SmartBullet : MonoBehaviour
             }
             else
             {
+                shootDir = transform.forward;
                 transform.Translate(Vector3.forward * Time.deltaTime * currentSpeed);
             }
             if (Vector3.Distance(transform.position, playerController.GunEnd.transform.position) > 70 && !rewinding)
@@ -72,13 +73,14 @@ public class SmartBullet : MonoBehaviour
 
     void CheckCollisions(float distToMove)
     {
-        Ray ray = new Ray(transform.position, transform.forward);
+        Ray ray = new Ray(transform.position, shootDir);
         RaycastHit hit;
         if(currentSpeed > 0)
         {
 
             if (Physics.Raycast(ray, out hit, distToMove, shieldCollisionMask, QueryTriggerInteraction.Collide))
             {
+                print("hit shield");
                 Destroy(Instantiate(BulletHit.gameObject, hit.point, Quaternion.identity) as GameObject, 0.2f);
                 OnHitShield(hit);
                 FindObjectOfType<AudioManager>().Play("BulletHitShield");
@@ -155,7 +157,8 @@ public class SmartBullet : MonoBehaviour
     {
         if(bulletType != bulletTypes.armorPiercing)
         {
-            if ((Vector3.Angle(transform.forward, hit.transform.forward) > 90 && Vector3.Angle(transform.forward, hit.transform.forward) < 270 && !rewinding) || (Vector3.Angle(-transform.forward, hit.transform.forward) > 90 && Vector3.Angle(transform.forward, hit.transform.forward) < 270 && rewinding))
+            print(Vector3.Angle(transform.forward, hit.transform.forward));
+            if ((Vector3.Angle(transform.forward, hit.transform.forward) < 90 && Vector3.Angle(transform.forward, hit.transform.forward) > -90 && !rewinding) || ((Vector3.Angle(transform.forward, hit.transform.forward) < 90 && Vector3.Angle(transform.forward, hit.transform.forward) > -90 && rewinding)))
             {
                 hitShield = true;
                 Destroy(Instantiate(sparkEffect.gameObject, hit.point, Quaternion.FromToRotation(Vector3.forward, -transform.forward)) as GameObject, sparkEffect.main.startLifetimeMultiplier);

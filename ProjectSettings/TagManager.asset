@@ -9,6 +9,7 @@ TagManager:
   - OuterWall
   - Catch
   - Battery
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -24,8 +25,8 @@ TagManager:
   - Player
   - Shield
   - Furniture
-  - 
-  - 
+  - Glass
+  - Armour
   - 
   - 
   - 

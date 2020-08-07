@@ -40,8 +40,10 @@ public class Player : LivingEntity {
 
     // Update is called once per frame
     private void Update () {
-        handleInputs ();
-        handleUI();
+        if (!dead) {
+            handleInputs ();
+            handleUI();
+        }
     }
     void FixedUpdate () {
         handleTimers ();
@@ -116,13 +118,32 @@ public class Player : LivingEntity {
 
     public override void TakeHit (float damage, Vector3 hitPoint, Vector3 hitDirection) {
         if (damage >= health) {
-            audioManager.Play("Death");
-            Destroy (Instantiate (DeathEffect.gameObject, transform.position, Quaternion.FromToRotation (Vector3.forward, hitDirection)) as GameObject, DeathEffect.main.startLifetimeMultiplier);
+            Die();
+            Destroy(Instantiate(DeathEffect.gameObject, transform.position, Quaternion.FromToRotation(Vector3.forward, hitDirection)) as GameObject, DeathEffect.main.startLifetimeMultiplier);
         } else {
             Destroy (Instantiate (DamageEffect.gameObject, transform.position, Quaternion.FromToRotation (Vector3.forward, hitDirection)) as GameObject, DamageEffect.main.startLifetimeMultiplier);
         }
         base.TakeHit (damage, hitPoint, hitDirection);
 
         healthBar.SetHealth(health);
+    }
+
+    protected override void Die()
+    {
+        dead = true;
+        GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<CapsuleCollider>().enabled = false;
+        Time.timeScale = 0.5f;
+        audioManager.Play("Death");
+        audioManager.Pause();
+        FindObjectOfType<LevelManager>().levelFailed();
+        StartCoroutine(Slowtime());
+    }
+    IEnumerator Slowtime()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Time.timeScale = 0.2f;
+        yield return new WaitForSeconds(0.5f);
+        Time.timeScale = 0f;
     }
 }
