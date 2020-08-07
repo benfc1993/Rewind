@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6035253669192075385}
   m_Layer: 0
   m_Name: Bullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,9 +130,6 @@ MonoBehaviour:
   playerCollisionMask:
     serializedVersion: 2
     m_Bits: 2048
-  furnitureCollisionMask:
-    serializedVersion: 2
-    m_Bits: 8192
   wallCollisionMask:
     serializedVersion: 2
     m_Bits: 512
