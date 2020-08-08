@@ -43,4 +43,9 @@ public class MainMenu : MonoBehaviour
 		yield return new WaitForSeconds(3.6f);
 		StartCoroutine(bulletSounds());
 	}
+
+	public void Exit()
+	{
+		Application.Quit();
+	}
 }
