@@ -3165,6 +3165,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1320280522}
     m_Modifications:
+    - target: {fileID: -3461539818978613831, guid: 8c27676a01e2fca49b51c0371a696cad, type: 3}
+      propertyPath: hasBattery
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3461539818978613831, guid: 8c27676a01e2fca49b51c0371a696cad, type: 3}
+      propertyPath: battery
+      value: 
+      objectReference: {fileID: 5399088256046009269, guid: 5bdf08e76cb26014ab180ec070649777, type: 3}
     - target: {fileID: 5763472812103197258, guid: 8c27676a01e2fca49b51c0371a696cad, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.539691
@@ -3402,6 +3410,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1320280522}
     m_Modifications:
+    - target: {fileID: -3461539818978613831, guid: 8c27676a01e2fca49b51c0371a696cad, type: 3}
+      propertyPath: hasBattery
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3461539818978613831, guid: 8c27676a01e2fca49b51c0371a696cad, type: 3}
+      propertyPath: battery
+      value: 
+      objectReference: {fileID: 5399088256046009269, guid: 5bdf08e76cb26014ab180ec070649777, type: 3}
     - target: {fileID: 5763472812103197258, guid: 8c27676a01e2fca49b51c0371a696cad, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.36230183
@@ -5560,6 +5576,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1320280522}
     m_Modifications:
+    - target: {fileID: 6379453727809666074, guid: 18c115a0f6e941840babc30a54a99904, type: 3}
+      propertyPath: hasBattery
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6379453727809666074, guid: 18c115a0f6e941840babc30a54a99904, type: 3}
+      propertyPath: battery
+      value: 
+      objectReference: {fileID: 5399088256046009269, guid: 5bdf08e76cb26014ab180ec070649777, type: 3}
     - target: {fileID: 6672341503175636656, guid: 18c115a0f6e941840babc30a54a99904, type: 3}
       propertyPath: m_Name
       value: Enemy - range Rifle - Armour (2)

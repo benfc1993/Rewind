@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelHalt : MonoBehaviour
 {
+	public float secondsToWait;
 	private void Start()
 	{
 		StartCoroutine(WaitForEnd());
@@ -11,7 +12,7 @@ public class LevelHalt : MonoBehaviour
 
 	IEnumerator WaitForEnd()
 	{
-		yield return new WaitForSeconds(19);
+		yield return new WaitForSeconds(secondsToWait);
 		Destroy(gameObject);
 	}
 }
