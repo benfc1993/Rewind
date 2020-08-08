@@ -4,13 +4,21 @@ using UnityEngine;
 public class MainMenu : MonoBehaviour
 {
 	public Intro intro;
-	public Light light;
+	public Light purpleLight;
 	public Animator[] animators;
+	public CanvasGroup levelSelect;
 
 	private void Start()
 	{
 		FindObjectOfType<AudioManager>().Play("BaseSong");
 		StartCoroutine(bulletSounds());
+	}
+
+	public void OpenLevelSelect()
+	{
+		levelSelect.alpha = 1;
+		levelSelect.interactable = true;
+		levelSelect.blocksRaycasts = true;
 	}
 
 	public void StartGame()
@@ -20,7 +28,7 @@ public class MainMenu : MonoBehaviour
 			a.SetTrigger("Start");
 		}
 		intro.StartCutscene();
-		light.intensity = 12;
+		purpleLight.intensity = 12;
 		StopAllCoroutines();
 		FindObjectOfType<AudioManager>().Pause();
 	}

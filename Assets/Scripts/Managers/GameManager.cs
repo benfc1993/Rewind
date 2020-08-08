@@ -4,6 +4,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    AudioManager audioManager;
     private void Awake()
     {
         if (instance == null)
@@ -19,16 +20,44 @@ public class GameManager : MonoBehaviour
         print("loaded");
     }
 
+    private void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+        audioManager.disabled = true;
+    }
+
     public void StartLevel()
     {
         FindObjectOfType<LevelManager>().SwapLights();
-        FindObjectOfType<AudioManager>().ChangeSong(0);
+        audioManager.disabled = false;
+        audioManager.ChangeSong(FindObjectOfType<PlayerController>().currentEquipped);
     }
 
     public void NextScene()
     {
         //Transition
         FindObjectOfType<Transition>().FadeOUt();
+        audioManager.Pause();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void LoadLevel(int Level)
+    {
+        FindObjectOfType<Transition>().FadeOUt();
+        audioManager.Pause();
+        SceneManager.LoadScene(Level);
+    }
+
+    public void MainMenu()
+    {
+        //Transition
+        FindObjectOfType<Transition>().FadeOUt();
+        audioManager.Pause();
+        SceneManager.LoadScene(0);
+    }
+
+    public void Quit()
+    {
+        //Close game
     }
 }

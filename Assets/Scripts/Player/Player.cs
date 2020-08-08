@@ -4,6 +4,8 @@ using UnityEngine;
 
 [RequireComponent (typeof (PlayerController))]
 public class Player : LivingEntity {
+    public bool disabled;
+
     public float moveSpeed = 5;
 
     public float bounceSpeed = 15;
@@ -40,7 +42,7 @@ public class Player : LivingEntity {
 
     // Update is called once per frame
     private void Update () {
-        if (!dead) {
+        if (!dead && !disabled) {
             handleInputs ();
             handleUI();
         }
@@ -66,7 +68,7 @@ public class Player : LivingEntity {
     }
 
     void handleMovement () {
-        if (Input.GetKeyDown (KeyCode.Space) && dashTime == 0) {
+        if (Input.GetKeyDown (KeyCode.Space) && dashTime == 0 && !disabled) {
             dust.Play ();
             audioManager.Play("Dodge");
             dashTime = startDashTime;

@@ -3940,6 +3940,10 @@ PrefabInstance:
       propertyPath: bulletUI.Array.data[2]
       value: 
       objectReference: {fileID: 30815639}
+    - target: {fileID: 4371859207389961945, guid: 63d917a66dafb7347b26b8554bc56b2e, type: 3}
+      propertyPath: disabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4371859207389961946, guid: 63d917a66dafb7347b26b8554bc56b2e, type: 3}
       propertyPath: ammoCounter
       value: 

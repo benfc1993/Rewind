@@ -48,7 +48,6 @@ public class Boss : MonoBehaviour
 
 		while( duration > 0)
 		{
-				print(duration / 3f);
 			foreach (Light l in lights)
 			{
 				l.intensity = l.intensity * (duration / 3f);
@@ -61,7 +60,6 @@ public class Boss : MonoBehaviour
 	IEnumerator Finish()
 	{
 		yield return new WaitForSeconds(0.7f);
-		print("finish");
 		Time.timeScale = 1f;
 		StartCoroutine(ChangeScene());
 	}

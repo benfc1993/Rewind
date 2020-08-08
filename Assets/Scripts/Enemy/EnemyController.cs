@@ -17,6 +17,7 @@ public class EnemyController : LivingEntity
 
     public bool hasBattery;
     public Battery battery;
+    ElevatorDoor elevatorDoor;
 
     protected override void Start()
     {
@@ -24,7 +25,7 @@ public class EnemyController : LivingEntity
         base.Start();
         pathFinder = GetComponent<UnityEngine.AI.NavMeshAgent>();
         target = Player;
-
+        elevatorDoor = FindObjectOfType<ElevatorDoor>();
         StartCoroutine(UpdatePath());
     }
 
@@ -73,7 +74,7 @@ public class EnemyController : LivingEntity
 
     protected override void Die()
     {
-        FindObjectOfType<ElevatorDoor>().OnEnemyDeath();
+        elevatorDoor.OnEnemyDeath();
         base.Die();
     }
 

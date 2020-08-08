@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+    public bool disabled;
     public Sound[] sounds;
     public string[] songs;
     bool switching = false;
@@ -43,17 +44,20 @@ public class AudioManager : MonoBehaviour
 
     public void ChangeSong(int toPlay)
     {
-        switching = false;
-        if(!Array.Find(sounds, sound => sound.name == songs[toPlay]).source.isPlaying) {
-            foreach (string song in songs )
-            {
-                Sound s = Array.Find(sounds, sound => sound.name == song);
-                s.source.Stop();
-            }
-            Sound c = Array.Find(sounds, sound => sound.name == "CassetteChange");
-            c.source.Play();
-            StartCoroutine(delaySong(1f));
+        if(!disabled)
+        {
+            switching = false;
+            if(!Array.Find(sounds, sound => sound.name == songs[toPlay]).source.isPlaying) {
+                foreach (string song in songs )
+                {
+                    Sound s = Array.Find(sounds, sound => sound.name == song);
+                    s.source.Stop();
+                }
+                Sound c = Array.Find(sounds, sound => sound.name == "CassetteChange");
+                c.source.Play();
+                StartCoroutine(delaySong(1f));
             
+            }
         }
     }
 
@@ -72,8 +76,15 @@ public class AudioManager : MonoBehaviour
 
     public void Pause()
     {
-        Sound s = Array.Find(sounds, sound => sound.name == songs[FindObjectOfType<PlayerController>().currentEquipped]);
-        s.source.Pause();
+        if(FindObjectOfType<PlayerController>())
+        {
+            Sound s = Array.Find(sounds, sound => sound.name == songs[FindObjectOfType<PlayerController>().currentEquipped]);
+            s.source.Pause();
+        } else
+        {
+            Sound s = Array.Find(sounds, sound => sound.name == songs[0]);
+            s.source.Pause();
+        }
     }
 
     public void Resume()
