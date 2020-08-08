@@ -140,6 +140,7 @@ public class Player : LivingEntity {
         audioManager.Pause();
         FindObjectOfType<LevelManager>().levelFailed();
         StartCoroutine(Slowtime());
+        Cursor.visible = true;
     }
     IEnumerator Slowtime()
     {

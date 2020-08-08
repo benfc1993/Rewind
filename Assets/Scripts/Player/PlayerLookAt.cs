@@ -6,12 +6,14 @@ using Assets.Utils.UtilsClass;
 public class PlayerLookAt : MonoBehaviour
 {
     Camera viewCamera;
+    public Transform crosshairs;
 
     public Vector3 point;
     // Start is called before the first frame update
     private void Start()
     {
         viewCamera = Camera.main;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -26,6 +28,7 @@ public class PlayerLookAt : MonoBehaviour
             Debug.DrawLine(ray.origin, point, Color.cyan);
 
             transform.LookAt(new Vector3(point.x, transform.position.y, point.z));
+            crosshairs.position = new Vector3(point.x, 5, point.z);
         }
     }
 }

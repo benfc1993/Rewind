@@ -6,10 +6,6 @@ public class PauseMenu : MonoBehaviour
 {
 	public bool open = false;
 	public CanvasGroup canvasGroup;
-	private void Awake()
-	{
-		DontDestroyOnLoad(gameObject);
-	}
 
 	private void Update()
 	{
@@ -18,8 +14,11 @@ public class PauseMenu : MonoBehaviour
 			open = true;
 			//GetComponent<Animator>().SetBool("Open", true);
 			canvasGroup.alpha = 1;
+			canvasGroup.interactable = true;
+			canvasGroup.blocksRaycasts = true;
 			FindObjectOfType<AudioManager>().Pause();
 			Time.timeScale = 0f;
+			Cursor.visible = true;
 		} else if (Input.GetKeyDown(KeyCode.Escape) && open)
 		{
 			CloseWindow();
@@ -33,6 +32,9 @@ public class PauseMenu : MonoBehaviour
 		FindObjectOfType<AudioManager>().Resume();
 		canvasGroup.alpha = 0;
 		Time.timeScale = 1f;
+		Cursor.visible = false;
+		canvasGroup.interactable = false;
+		canvasGroup.blocksRaycasts = false;
 	}
 	public void Resume()
 	{
