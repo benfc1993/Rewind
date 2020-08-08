@@ -48,6 +48,13 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(Level);
     }
 
+    public void Restart()
+    {
+        FindObjectOfType<Transition>().FadeOUt();
+        audioManager.Pause();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void MainMenu()
     {
         //Transition

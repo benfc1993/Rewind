@@ -41,6 +41,11 @@ public class PauseMenu : MonoBehaviour
 		CloseWindow();
 	}
 
+	public void Restart()
+	{
+		FindObjectOfType<GameManager>().Restart();
+	}
+
 	public void Quit()
 	{
 		FindObjectOfType<GameManager>().MainMenu();
