@@ -742,7 +742,6 @@ GameObject:
   - component: {fileID: 287131069}
   - component: {fileID: 287131072}
   - component: {fileID: 287131071}
-  - component: {fileID: 287131070}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -764,19 +763,6 @@ Transform:
   m_Father: {fileID: 5358979}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &287131070
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 287131068}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &287131071
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2546,7 +2532,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3563,7 +3549,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -3873,7 +3859,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -5471,22 +5457,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &3481605093344471074
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8020241096745884190}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!33 &4801162874391379270
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5529,7 +5499,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5231508533032032769, guid: 421413dfba3ab8e40a88265ec5d3e935, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5231508533032032774, guid: 421413dfba3ab8e40a88265ec5d3e935, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5663,8 +5633,6 @@ GameObject:
   - component: {fileID: 6559343528123355384}
   - component: {fileID: 7697052626208302326}
   - component: {fileID: 2477312704098453934}
-  - component: {fileID: 8964554826969155900}
-  - component: {fileID: 3481605093344471074}
   m_Layer: 0
   m_Name: SmartBullet
   m_TagString: Bullet
@@ -5687,16 +5655,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: -180.004, y: 450.004, z: -450}
---- !u!65 &8964554826969155900
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8020241096745884190}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.2768407, y: 1.4753911, z: 6.942589}
-  m_Center: {x: 0.051403213, y: 0.036961865, z: -0.30596587}
